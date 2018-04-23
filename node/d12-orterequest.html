@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+	<title>Orte Request</title>
+	<meta charset="utf-8">
+	<script src="jquery-3.3.1.min.js"></script>
+	<script>
+$(document).on('click', 'button', function (){
+
+    $.ajax({
+      url:'http://localhost:5000',
+      method:'POST',
+      dataType: 'html',
+      data:{},
+      success: function( antwort ){
+        $('<div>').html( antwort ).appendTo('body');
+      }
+    });//ajax
+
+    var neuerOrt = function (){
+
+    }
+});//onclick
+	</script>
+	<style>
+  *{font:20px Arial;}
+	</style>
+</head>
+<body>
+  <h1>Orte</h1>
+  <form>
+    <input type="text" id="name" placeholder="Neu">
+    <input type="text" id="lat" placeholder="LAT">
+    <input type="text" id="lng" placeholder="LNG"> <br>
+  <button>Save</button>
+  <div id="ausgabe"></div>
+</body>
+</html>
