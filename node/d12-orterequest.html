@@ -8,36 +8,54 @@
 /*
 1. Post data to server
 2. Save data on server
-3. Display saved data 
+3. Display saved data
 */
-$(document).on('click', 'button', function (){
+$(document).ready(function(){
+$.ajax({
+	url:'http://localhost:5000/zeigeorte',
+	method: 'POST',
+	success: function(response){
+		console.log(response)
+		console.log(response.orte[1].name)
+
+		for (var i in response.orte){
+			$('<div>').html('Name: '+response.orte[i].name+' Lat: '+response.orte[i].lat+' Lng: '+response.orte[i].lng).appendTo('#orte');
+		}
+	}
+})//ajax gespeicherte orte
+})//window on load
+$(document).on('click', 'button', function (event){
+	event.preventDefault();
+
+	var neuerOrt = {}
+		neuerOrt.name = $('#name').val();
+		neuerOrt.lat = $('#lat').val()*1;
+		neuerOrt.lng = $('#lng').val()*1;
+
 
     $.ajax({
-      url:'http://localhost:5000',
+      url:'http://localhost:5000/orte',
       method:'POST',
-      dataType: 'html',
-      data:{},
-      success: function( antwort ){
-        $('<div>').html( antwort ).appendTo('body');
+      data:neuerOrt,
+      success: function( response ){
+        alert('Daten wurden gespeichert!')
       }
     });//ajax
-
-    var neuerOrt = function (){
-
-    }
 });//onclick
 	</script>
 	<style>
-  *{font:20px Arial;}
 	</style>
 </head>
 <body>
-  <h1>Orte</h1>
+  <h1>Orte Verwaltung mit NodeJS</h1>
+	<h2>Neuer Ort</h2>
   <form>
-    <input type="text" id="name" placeholder="Neu">
-    <input type="text" id="lat" placeholder="LAT">
-    <input type="text" id="lng" placeholder="LNG"> <br>
+    <input type="text" id="name" placeholder="ORT" autocomplete=off>
+    <input type="text" id="lat" placeholder="LAT" autocomplete=off>
+    <input type="text" id="lng" placeholder="LNG" autocomplete=off> <br>
   <button>Save</button>
-  <div id="ausgabe"></div>
+	<h2> Gespeicherte Orte </h2>
+  <div id="orte">
+	</div>
 </body>
 </html>

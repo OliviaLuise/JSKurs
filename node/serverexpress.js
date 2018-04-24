@@ -4,8 +4,8 @@ var bp = require('body-parser'); //Request Inhalte zulassen
 
 var app = express();
 
-var server = app.listen(5000, function(){
-  console.log('Server gestartet. http//:localhost:5000')
+var server = app.listen(4000, function(){
+  console.log('Server gestartet. http//:localhost:4000')
 
 });
 /*
