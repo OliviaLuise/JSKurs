@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="jquery-3.3.1.min.js"></script>
+	<script>
+
+$(document).on('click', 'button', function(event){
+  event.preventDefault();
+
+  $.ajax({
+    url: 'http://localhost:5001/getWLData',
+    method: 'POST',
+    success:function(response){
+      console.log(response);
+    }
+
+  }); //ajax Linien
+
+  $.ajax({
+    url:'https://localhost:5001/getBSData',
+    method:'POST',
+    success:function(response){
+      console.log(response);
+    }
+  });//ajax Bahnsteige
+
+  $.ajax({
+    url:'http://localhost:5001/getHSData',
+    method: 'POST',
+    success:function(response){
+      console.log(response);
+    }
+  })//ajax Haltestellen
+
+
+}); //onclick
+	</script>
+	<style>
+  body { font-family:Arial; font-size:0.8em}
+	</style>
+</head>
+<body>
+  <button>Lade Liniendaten von WienerLinien </button>
+</body>
+</html>
