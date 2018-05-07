@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script>
+  var app = angular.module('userApp', []);
+  app.controller('userCtrl', function($scope){
+
+    $scope.users = [];
+    $scope.addUser = function(){
+      $scope.users.push({userName:$scope.textUsername, checked:false});
+      $scope.textUsername = '';
+    }
+
+    $scope.deleteUsers = function (){
+      for( let i = $scope.users.length-1; i>=0; i--){
+        if($scope.users[i].checked){
+          $scope.users.splice(i,1);
+        }
+      }
+    };
+
+  $scope.printAnzahl = function (){
+    if($scope.users.length > 0){
+      document.getElementById('anzahl').style.display = 'block';
+      return $scope.users.length;
+      } else {
+    document.getElementById('anzahl').style.display = 'none';
+      }
+    };
+
+  $scope.sortiereUsers = function(){
+    $scope.users.sort( function(a,b){
+      return a.userName > b.unerName;
+    });
+  }
+  });
+
+  </script>
+  <style>
+  </style>
+</head>
+<body ng-app="userApp"> <!-- definiert für angular dass, das hier meine Applikation wird -->
+  <div ng-controller = 'userCtrl'>
+    <h2 id='anzahl'>Anzahl User: <span>{{printAnzahl()}}</span></h2>
+    <form>
+      <input type="text" placeholder="Username"
+      ng-model="textUsername"><button ng-click="addUser()">Hinzufügen</button>
+    </form>
+    <div id="users" ng-repeat="u in users">
+      <input type="checkbox" ng-model="u.checked"><span>{{u.userName}}</span>
+    </div>
+    <button ng-click="deleteUsers()">Markierte User löschen</button>
+    <button ng-click="sortiereUsers()"> Sortieren </button>
+  </div>
+</body>
+</html>

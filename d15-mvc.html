@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="d15-mvc1-controller.js"></script>
+  <script src="d15-mvc1-events.js"></script>
+  <script src="d15-mvc1-model.js"></script>
+  <script src="d15-mvc1-view.js"></script>
+  <script>
+window.onload = function(){
+
+  var model = new MVC.Model(10);
+  var view = new MVC.View(model, document.getElementById('zahl') );
+  var controller = new MVC.Controller(model, view);
+
+  view.show();
+  setTimeout( function(){
+    controller.update(20);
+  }, 1000);
+}
+
+  </script>
+  <style>
+  *{
+    font:2rem Arial;
+  }
+  </style>
+</head>
+<body>
+  Zahl: <span id="zahl">?</span>
+</body>
+</html>

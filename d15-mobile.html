@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="jquery-3.3.1.min.js"></script>
+  <script>
+var bilder = [
+  'das-paradies-fuer-wintersportler.jpg',
+  'langlaufen-osttirol.jpeg',
+  'schloss-matzen-skigebiet.jpg'
+]
+
+$(document).ready(function(){
+  $('#bilder').append($('<img>').attr('src', 'tirolbilder/'+bilder[0] ))
+
+var startX, endX;
+  $('#bilder').on('touchstart', function(event){
+    //ermittle Position von Finger
+    startX = event.originalEvent.touches[0].clientX;
+  });//touchstart
+
+  $('#bilder').on('touchend', function(event){
+    //berechne ob Finger nach links oder rechts bewegt wurde
+    endX = event.originalEvent.changedTouches[0].clientX;
+    if(endX-startX < 0) $(this).trigger('wischlinks');
+    else if (endX - startX > 0) $(this).trigger('wischrechts');
+  });//touchend
+
+  $('#bilder').on('wischlinks', function(){
+    Array.prototype.current = 0;
+    Array.prototype.next = function (){
+      return this[++this.current]
+    };
+
+    $('img', this).attr('src', 'tirolbilder/'+bilder.next());
+  });//wischlinks
+
+  $('#bilder').on('wischrechts', function(){
+    Array.prototype.current = 0
+    Array.prototype.prev = function (){
+      return this[--this.current]
+    };
+
+    $('img', this).attr('src', 'tirolbilder/'+bilder.prev());
+  });
+});
+
+
+  </script>
+  <style>
+  img {
+    vertical-align:bottom;
+  }
+#bilder {
+  border:1px solid #000;
+  display: inline-block;
+}
+#bilder img {
+  width:400px;
+  height: 300px;
+}
+  </style>
+</head>
+<body>
+
+  <div id="bilder"></div>
+
+</body>
+</html>
